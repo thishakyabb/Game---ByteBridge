@@ -1,21 +1,97 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+
+public class HttpRequestManager : MonoBehaviour
+{
+    private static HttpRequestManager instance;
+    public static HttpRequestManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GameObject("HttpRequestManager").AddComponent<HttpRequestManager>();
+                DontDestroyOnLoad(instance.gameObject);
+            }
+            return instance;
+        }
+    }
+
+    private string apiUrl;
+    private string jwtToken;
+
+    public void Initialize(string apiUrl, string jwtToken)
+    {
+        this.apiUrl = apiUrl;
+        this.jwtToken = jwtToken;
+    }
+
+    public IEnumerator LoadMainMenu()
+    {
+        // Perform additional background API calls or setup as needed
+        // ...
+
+        // Simulate loading process, e.g., fetching player data, initializing game assets, etc.
+        yield return new WaitForSeconds(2f);
+
+        // Now, the player is authenticated, and you can proceed to the main menu
+        Debug.Log("Authentication successful. Loading main menu...");
+
+        // Example: Make another API call using the centralized manager
+        StartCoroutine(MakeApiCall("someEndpoint"));
+    }
+
+    public IEnumerator MakeApiCall(string endpoint)
+    {
+        string requestUrl = $"{apiUrl}/{endpoint}";
+
+        using (UnityWebRequest request = UnityWebRequest.Get(requestUrl))
+        {
+            // Set JWT token in the request header
+            request.SetRequestHeader("Authorization", $"Bearer {jwtToken}");
+
+            // Send the request and handle the response
+            yield return request.SendWebRequest();
+
+            // Handle the response
+            if (request.result == UnityWebRequest.Result.ConnectionError ||
+                request.result == UnityWebRequest.Result.DataProcessingError)
+            {
+                Debug.LogError($"API call failed: {request.error}");
+            }
+            else if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("API call successful. Response: " + request.downloadHandler.text);
+                // Handle the response as needed
+                // ...
+            }
+        }
+    }
+}
 
 public class APIManager : MonoBehaviour
 {
     private string apiKey = "NjVkNDIyMjNmMjc3NmU3OTI5MWJmZGI5OjY1ZDQyMjIzZjI3NzZlNzkyOTFiZmRhZg"; // Replace with your actual API key
-    private string apiUrl = "http://20.15.114.131:8080/api/login"; // Replace with your API base URL
+    private string apiUrl = "http://20.15.114.131:8080/api";
     private string jwtToken;
+
+    public Button apiCallButton; // Attach your button in the Unity editor
 
     void Start()
     {
-        StartCoroutine(AuthenticatePlayer());
+        apiCallButton.onClick.AddListener(OnApiCallButtonClick);
     }
 
-    IEnumerator AuthenticatePlayer()
+    void OnApiCallButtonClick()
     {
-        string authenticationUrl = $"{apiUrl}/authenticate";
+        StartCoroutine(AuthenticateAndMakeApiCall());
+    }
+
+    IEnumerator AuthenticateAndMakeApiCall()
+    {
+        string authenticationUrl = $"{apiUrl}/login/authenticate";
 
         // Create a UnityWebRequest for authentication
         using (UnityWebRequest authRequest = UnityWebRequest.Get(authenticationUrl))
@@ -38,38 +114,11 @@ public class APIManager : MonoBehaviour
                 jwtToken = authRequest.downloadHandler.text;
 
                 // Set up centralized HTTP request manager with JWT token
-                StartCoroutine(LoadMainMenu());
+                HttpRequestManager.Instance.Initialize(apiUrl, jwtToken);
+
+                // Make API call using the centralized manager
+                StartCoroutine(HttpRequestManager.Instance.MakeApiCall("someEndpoint"));
             }
-        }
-    }
-
-    IEnumerator LoadMainMenu()
-    {
-        // Perform additional background API calls or setup as needed
-        // ...
-
-        // Simulate loading process, e.g., fetching player data, initializing game assets, etc.
-        yield return new WaitForSeconds(2f);
-
-        // Now, the player is authenticated, and you can proceed to the main menu
-        Debug.Log("Authentication successful. Loading main menu...");
-    }
-
-    // You can use this method to make other API calls with the JWT token
-    IEnumerator MakeApiCall(string endpoint)
-    {
-        string requestUrl = $"{apiUrl}/{endpoint}";
-
-        using (UnityWebRequest request = UnityWebRequest.Get(requestUrl))
-        {
-            // Set JWT token in the request header
-            request.SetRequestHeader("Authorization", $"Bearer {jwtToken}");
-
-            // Send the request and handle the response
-            yield return request.SendWebRequest();
-
-            // Handle the response as needed
-            // ...
         }
     }
 
