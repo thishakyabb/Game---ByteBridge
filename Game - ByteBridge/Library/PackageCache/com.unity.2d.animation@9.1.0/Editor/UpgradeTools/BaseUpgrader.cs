@@ -1,13 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace UnityEditor.U2D.Animation.Upgrading
-{
-    internal abstract class BaseUpgrader
-    {
-        protected Logger m_Logger = new Logger();
-        
-        internal abstract List<Object> GetUpgradableAssets();
-        internal abstract UpgradeReport UpgradeSelection(List<ObjectIndexPair> selection);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:448ba279cfe9b325bd4cb8d2f09846ee77df6650bf8f878219c055b8191412cb
+size 369

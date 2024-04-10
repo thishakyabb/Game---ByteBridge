@@ -1,32 +1,3 @@
-{
-    "name": "Unity.2D.Animation.Editor",
-    "rootNamespace": "",
-    "references": [
-        "Unity.InternalAPIEditorBridge.001",
-        "Unity.InternalAPIEngineBridge.001",
-        "Unity.2D.Common.Editor",
-        "Unity.2D.Common.Runtime",
-        "Unity.2D.Animation.Runtime",
-        "Unity.2D.Sprite.Editor",
-        "Unity.Mathematics",
-        "Unity.Burst",
-        "Unity.Collections"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": true,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "com.unity.collections",
-            "expression": "2.0.0-exp",
-            "define": "COLLECTIONS_2_0_OR_ABOVE"
-        }
-    ],
-    "noEngineReferences": false
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cd23320ab1a821924612976fabaf8aaf9cb6d298bfc8d959fb351b02e98c2157
+size 853

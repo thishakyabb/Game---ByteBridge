@@ -1,14 +1,3 @@
-namespace UnityEditor.U2D.Animation
-{
-    internal static class SpriteLibraryPropertyString
-    {
-        public const string overrideEntries = "m_OverrideEntries";
-        public const string fromMain = "m_FromMain";
-        public const string spriteOverride = "m_SpriteOverride";
-        public const string sprite = "m_Sprite";
-        public const string overrideEntryCount = "m_EntryOverrideCount";
-        public const string name = "m_Name";
-        public const string hash = "m_Hash";
-        public const string categoryList = "m_CategoryList";
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:fdd428a134e9e37f938305d5ee99099fb310cf6eb1fb6769fa5707447f9a4abd
+size 563
