@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9dc0fe83bad6c2940f2138194093ad91f3182148676b0538c75a302da64b5337
-size 625
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class ErrorScene : MonoBehaviour
+{
+    [SerializeField] private string authorization = "Authorization";
+    [SerializeField] private Button retryButton;
+
+    void Awake()
+    {
+        // Register a callback for the button click event
+        retryButton.onClick.AddListener(OnRetryButtonClick);
+    }
+
+    // Method to be called when the retry button is clicked
+    void OnRetryButtonClick()
+    {
+        // Transition back to the scene with the API call button
+        SceneManager.LoadScene(authorization);
+    }
+}

@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a428fd77624f87365fd169cf9bc2bcb96d1a05aa363d060da9236627c9ee33b3
-size 781
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+public class Savebutton : MonoBehaviour
+{
+    // Start is called before the first frame update
+    [SerializeField] private Button saveButton;
+    private ApiManager apiManager;
+    private ProfileScript profileScript;
+    void Awake()
+    {
+        apiManager = GetComponent<ApiManager>();
+        profileScript = GetComponent<ProfileScript>();
+        saveButton.onClick.AddListener(OnSaveButtonClick);
+    }
+
+    void OnSaveButtonClick()
+    {
+        Debug.Log("Save button clicked");
+        StartCoroutine(apiManager.UpdateProfile(ProfileScript.userprofile, result =>
+        {
+        }));
+    }
+
+    // Update is called once per frame
+}
