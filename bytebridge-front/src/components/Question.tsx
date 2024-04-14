@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Roboto_Mono } from "next/font/google";
 const roboto = Roboto_Mono({ weight: "400", subsets: ["latin"] });
-import { Question, Questionnaire } from "@/types";
+import { Question as q, Questionnaire } from "@/types";
 export default function Question({
 	questionState,
 	setQuestionnaire,
@@ -11,7 +11,7 @@ export default function Question({
 	submitAnswer,
 	finish,
 }: {
-	questionState: Question;
+	questionState: q;
 	setQuestionnaire?: any | null;
 	currentQuestionIndex?: number | null;
 	mode: "question" | "answer";
