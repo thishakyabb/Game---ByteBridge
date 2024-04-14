@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1be6b8789ae1421d7cfb4b0fcbe2e5be8a851e9850f8a42664beabf365032e4a
-size 348
+using UnityEngine;
+
+public class LoadingCircle : MonoBehaviour
+{
+    private RectTransform rectComponent;
+    private float rotateSpeed = 200f;
+
+    private void Start()
+    {
+        rectComponent = GetComponent<RectTransform>();
+
+    }
+
+    private void Update()
+    {
+        rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+    }
+
+}

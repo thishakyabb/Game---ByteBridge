@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d0448729bce7776f0d0f6d7252f51ebd8755a26682cc4aef47b8f57e3a480cf6
-size 402
+package com.bytebridge.backend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class BytebridgeApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BytebridgeApplication.class, args);
+	}
+
+}

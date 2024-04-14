@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6b973ab61258e9bd54f460aaae8789eb4954881df3cfc04c0fcb01053dba79c6
-size 277
+package com.bytebridge.backend.Profile;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProfileRepository extends JpaRepository<Profile, Long> {
+    Profile findByNic(String nic);
+}

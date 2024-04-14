@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:57f5a73f236c5675bc68bf781100d0db7a1a063f8c65a2180d8a46662e4be487
-size 551
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class ProfileButton : MonoBehaviour
+{
+    // Start is called before the first frame update
+    [SerializeField] private Button profileButton;
+    void Awake()
+    {
+        profileButton.gameObject.SetActive(false);
+        profileButton.onClick.AddListener(OnProfileButtonClick);
+    }
+
+    // Update is called once per frame
+    void OnProfileButtonClick()
+    {
+        SceneManager.LoadScene(3);
+    }
+}

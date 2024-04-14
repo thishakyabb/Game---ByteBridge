@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8c4e4ea5954ed71ea8008d38db7888ca625cad4102085b9b377b248abc516762
-size 511
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class Backtomenu : MonoBehaviour
+{
+    // Start is called before the first frame update
+    [SerializeField] private Button backtomenuButton;
+    void Awake()
+    {
+        backtomenuButton.onClick.AddListener(OnBacktomenuButtonClick);
+    }
+
+    void OnBacktomenuButtonClick()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    // Update is called once per frame
+}
