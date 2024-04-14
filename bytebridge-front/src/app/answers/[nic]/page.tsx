@@ -57,7 +57,7 @@ export default function Answers() {
 				></motion.div>
 			</motion.div>
 			{questions.map((question, index) => (
-				<div className="my-10">
+				<div className="my-10" key={index}>
 					<Question
 						mode="answer"
 						questionState={question}
