@@ -43,3 +43,9 @@
 *.psd filter=lfs -crlf
 *.tga filter=lfs -crlf
 *.tif filter=lfs -crlf
+
+
+/webgl_build/Build/webgl_build.loader.js filter=lfs diff=lfs merge=lfs -text
+/webgl_build/Build/webgl_build.wasm filter=lfs diff=lfs merge=lfs -text
+/webgl_build/Build/webgl_build.data filter=lfs diff=lfs merge=lfs -text
+/webgl_build/Build/webgl_build.framework.js filter=lfs diff=lfs merge=lfs -text
