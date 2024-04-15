@@ -144,7 +144,7 @@ export default function Quizholder({
 				animate={toastControls}
 			>
 				<div
-					className=" bg-black rounded-md py-3 px-5 md:mx-28 mx-10"
+					className=" bg-black rounded-md py-3 px-5 md:mx-28 mx-10 text-white"
 					style={roboto.style}
 				>
 					<div>
