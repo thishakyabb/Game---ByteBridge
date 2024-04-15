@@ -33,7 +33,7 @@ export default function Question({
 				if (questionState.answeredIndex == questionState.correctAnswerIndex) {
 					return `${base} bg-green-500 text-white border-green-500`;
 				}
-				return `${base} bg-black text-red border-red-500 border-5`;
+				return `${base} bg-black text-white border-red-500 border-5`;
 			} else if (questionState.correctAnswerIndex == index) {
 				return `${base} bg-green-500 text-white border-green-500`;
 			}
