@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 export default function Home() {
 	const { unityProvider } = useUnityContext({
-		loaderUrl: "/unitybuild/webgl_build.loader.js",
-		dataUrl: "/unitybuild/webgl_build.data",
-		frameworkUrl: "/unitybuild/webgl_build.framework.js",
-		codeUrl: "/unitybuild/webgl_build.wasm",
+		loaderUrl: "/unitybuild/unitybuild.loader.js",
+		dataUrl: "/unitybuild/unitybuild.data",
+		frameworkUrl: "/unitybuild/unitybuild.framework.js",
+		codeUrl: "/unitybuild/unitybuild.wasm",
 	});
 	// const [devicePixelRatio, setDevicePixelRatio] = useState(() => {
 	// 	return window ? (window.devicePixelRatio ? window.devicePixelRatio : 1) : 1;

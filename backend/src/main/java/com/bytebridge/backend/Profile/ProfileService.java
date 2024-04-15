@@ -33,11 +33,8 @@ public class ProfileService {
         if (existingProfile.isEmpty()) {
 
             return true;
-        }
-        if (existingProfile.get().getMarks() > 0) {
-            return false;
         } else {
-            return true;
+            return false;
         }
     }
 

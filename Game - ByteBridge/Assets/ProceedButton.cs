@@ -34,13 +34,12 @@ public class ProceedButton : MonoBehaviour
                          if (allowedforquestionnaire)
                          {
                              //need to do questionnaire
+
+                             Application.OpenURL("http://localhost:3000/questionnaire/" + user.nic);
+                             Debug.Log("redirected to questionnaire");
                              proceedButton.onClick.RemoveAllListeners();
                              proceedButton.onClick.AddListener(CheckQuestionnaireState);
                              prompt.gameObject.SetActive(true);
-                         }
-                         else
-                         {
-                             Application.OpenURL("http://localhost:3000/questionnaire/" + user.nic);
                          }
                          //Need to do questionnaire
                      }));
