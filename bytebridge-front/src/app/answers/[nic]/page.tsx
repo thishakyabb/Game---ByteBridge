@@ -33,7 +33,7 @@ export default function Answers() {
 			className="min-h-screen overflow-auto flex flex-col"
 		>
 			<div className="text-4xl text-black pl-5 py-5 mb-10">Answers</div>
-			<motion.div className=" w-3/4 h-16 border-black border-1 relative flex m-10 items-center mb-16 self-center">
+			<motion.div className=" w-3/4 h-16 border-black border-1 relative flex m-10 items-center mb-16 self-center text-white">
 				<motion.div
 					className="   mix-blend-difference z-20 margin-auto w-full text-center align-middle text-3xl"
 					style={roboto.style}
