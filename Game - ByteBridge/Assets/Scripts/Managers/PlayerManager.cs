@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
 {
     public int currentHealth;
     // basics
+    public bool dead = false;
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] public int maxHealth = 10;
     [SerializeField] public float luck = 1f;
@@ -88,6 +89,23 @@ public class PlayerManager : MonoBehaviour
         
         healthTextTMP.text = String.Format("{0}/{1}",Mathf.Clamp(currentHealth, 0, maxHealth).ToString(),maxHealth);
         healthFill.fillAmount = (float)currentHealth / (float)maxHealth;
+    }
+
+    public void ResetStats()
+    {
+        guns.Clear();
+        coins = 0;
+        dead = false;
+        
+       fireCooldownModifier.StatValue = 1f;
+       critStat.StatValue = 0f;
+       movementSpeedModifier.StatValue = 1f;
+       maxHealthModifier.StatValue = 1f;
+       luckModifier.StatValue = 1f;
+       rangeModifier.StatValue = 1f;
+       damageModifier.StatValue = 1f;
+       maxHealth = 100;
+       currentHealth = maxHealth;
     }
     
 }

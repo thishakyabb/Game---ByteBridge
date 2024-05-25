@@ -17,17 +17,20 @@ public class PlayerMovement : MonoBehaviour
     private float moveHorizontal, moveVertical;
     private Vector2 movement;
     private PlayerManager _playerManager;
+    private WaveManager _waveManager;
     private int facingDirection = 1;
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         _playerManager = PlayerManager.Instance;
+        _waveManager = WaveManager.Instance;
     }
 
     private void Update()
     {
        
+        dead = _playerManager.dead;
         if (dead)
         {
             movement = Vector2.zero;
@@ -78,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        dead = true;
+        _playerManager.dead = true;
+        _waveManager.GameOver();
+        
     }
 }

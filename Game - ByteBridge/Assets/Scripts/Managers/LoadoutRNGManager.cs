@@ -21,6 +21,7 @@ public class LoadoutRNGManager : MonoBehaviour
    [SerializeField] private TextMeshProUGUI coinTMP;
    [SerializeField] private float rerollCostIncrementPercentage = 25f;
    [SerializeField] private GameObject rewardButton;
+   [SerializeField] private Sprite transparentSprite;
    private int rerollNumber = 0;
    private int rerollCost = 25;
    private ApiManager ApiManager;
@@ -82,6 +83,7 @@ public class LoadoutRNGManager : MonoBehaviour
    {
       coinTMP.text = PlayerManager.coins.ToString();
       rerollCoinTMP.text = rerollCost.ToString();
+      
    }
 
    public void UpdateStats()
@@ -151,6 +153,16 @@ public class LoadoutRNGManager : MonoBehaviour
       }
       
       
+   }
+   public void RestartGame()
+   {
+      markRewardCollected = false;
+      energyRewardCollected = false;
+      for (int i = 0; i < 6; i++)
+      {
+         inventoryHolder.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = transparentSprite;
+      }
+      GetRandomCards();
    }
    
 
