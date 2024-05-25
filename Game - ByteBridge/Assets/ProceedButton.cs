@@ -66,6 +66,7 @@ public class ProceedButton : MonoBehaviour
                         prompt.text = "Please complete your profile before proceeding";
                     }
                 }));
+                SceneManager.LoadScene(4);
                 Debug.Log("Load game");
             }
             //Need to do questionnaire
