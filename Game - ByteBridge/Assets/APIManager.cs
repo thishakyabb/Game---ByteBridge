@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Text;
 using UnityEngine.Networking;
-
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Reflection;
 
 public class ApiManager : MonoBehaviour
 {
@@ -13,6 +15,12 @@ public class ApiManager : MonoBehaviour
     private string baseRemoteUrl = "http://20.15.114.131:8080/api/";
     private string baseLocalUrl = "http://localhost:8080/api/";
     public static string jwtToken;
+    public static ApiManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+    }
 
     public IEnumerator AuthenticateMockAPI(System.Action<bool> callback)
     {
@@ -180,6 +188,67 @@ public class ApiManager : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator GetLastMonthAverage(Action<float> callback)
+    {
+        DateTime now = DateTime.Now;
+        using (UnityWebRequest request = new UnityWebRequest(string.Format("{0}power-consumption/yearly/view?year={1}",baseRemoteUrl,now.Year)))
+        {
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                var monthlyUsage = JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,Dictionary<string,double>>>>(request.downloadHandler.text);
+                string lastMonthName = now.AddMonths(-1).ToString("MMMM").ToUpper();
+                var lastMonthUnits = (monthlyUsage["units"][lastMonthName]["units"]);
+                callback?.Invoke((float)lastMonthUnits/30);
+
+            }
+            
+        }
+        
+    }
+
+    public IEnumerator GetUsageToday(Action<double> callback)
+    {
+        DateTime now = DateTime.Today;
+        using (UnityWebRequest request = new UnityWebRequest($"{baseRemoteUrl}power-consumption/current-month/daily/view"))
+        {
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                RootPowerConsumptionDaily root =
+                    JsonConvert.DeserializeObject<RootPowerConsumptionDaily>(request.downloadHandler.text);
+                var today = now.Day;
+                
+                callback?.Invoke(root.dailyPowerConsumptionView.dailyUnits[today]);
+            }
+            
+        }
+    }
+
+    public IEnumerator GetMarks(Action<int> callback,string nic)
+    {
+        using (UnityWebRequest request = new UnityWebRequest($"{baseLocalUrl}profiles/{nic}"))
+        {
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                int marks = JsonConvert.DeserializeObject<Data>(request.downloadHandler.text).marks;
+                callback?.Invoke(marks);
+            }
+            
+        }
+    }
     private string ParseJwtToken(string responseText)
     {
         TokenResponse tokenResponse = JsonUtility.FromJson<TokenResponse>(responseText);
@@ -208,6 +277,17 @@ public class ApiManager : MonoBehaviour
         public string email;
     }
 
+    
+    public class DailyPowerConsumptionView
+    {
+        public int year { get; set; }
+        public int month { get; set; }
+        public Dictionary<int, double> dailyUnits { get; set; }
+    }
+    public class RootPowerConsumptionDaily
+    {
+        public DailyPowerConsumptionView dailyPowerConsumptionView { get; set; }
+    }
     [System.Serializable]
     public class UpdateProfilePayload
     {
@@ -216,5 +296,24 @@ public class ApiManager : MonoBehaviour
         public string nic;
         public string phoneNumber;
         public string email;
+    }
+    
+    //Payload from local db
+    public class Question
+    {
+        public int id { get; set; }
+        public string question { get; set; }
+        public List<string> answers { get; set; }
+        public int correctAnswerIndex { get; set; }
+        public int answeredIndex { get; set; }
+        public string genericFeedback { get; set; }
+    }
+
+    public class Data
+    {
+        public int id { get; set; }
+        public int marks { get; set; }
+        public string nic { get; set; }
+        public List<Question> questions { get; set; }
     }
 }

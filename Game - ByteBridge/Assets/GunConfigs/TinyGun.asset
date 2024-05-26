@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869d7dbdd64b41be884cfdb9f7bb8098, type: 3}
+  m_Name: TinyGun
+  m_EditorClassIdentifier: 
+  fireRange: 10
+  projectile: {fileID: 6572566582780822524, guid: 21270af3cf265c6d0bc5ab9f1f03d977, type: 3}
+  fireRate: 0.5
+  gunSprite: {fileID: -1294146188, guid: 12be4c2f659813bc89a1292b52edd20d, type: 3}
+  damage: 25
