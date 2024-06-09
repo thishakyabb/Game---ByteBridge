@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance;
     public EnemyManager EnemyManager;
     public LoadoutRNGManager LoadoutRngManager;
+    public ApiManager ApiManager;
     private GunManager gm;
     public int waveNumber=1;
     [SerializeField] private GameObject LoadoutUI;
@@ -32,6 +33,7 @@ public class WaveManager : MonoBehaviour
     {
         EnemyManager = EnemyManager.Instance;
         LoadoutRngManager = LoadoutRNGManager.Instance;
+        ApiManager = ApiManager.Instance;
         EnemyManager.spawning = false;
         _playerManager = PlayerManager.Instance;
         gm = GunManager.Instance;
@@ -60,6 +62,7 @@ public class WaveManager : MonoBehaviour
         waveCounterTMP.text = String.Format("{0}th wave",waveNumber);
         timeLeft = waveDuration;
         timer = StartCoroutine(Countdown());
+        _playerManager.bestWave++;
     }
 
     public void EndWave()
@@ -95,6 +98,22 @@ public class WaveManager : MonoBehaviour
         GameOverUI.SetActive(true);
         LoadoutRngManager.Reroll();
         gm.RemoveAllGuns();
+        // first authenticates, then fetches profile and finally updates leaderboard
+        StartCoroutine(ApiManager.AuthenticateMockAPI(isAuthenticated =>
+        {
+            if (isAuthenticated)
+            {
+                StartCoroutine(ApiManager.FetchProfile(userProfile =>
+                {
+                    string nic = userProfile.nic;
+                    Debug.Log("kills and then waves");
+                    Debug.Log(_playerManager.kills);
+                    Debug.Log(_playerManager.bestWave);
+                    StartCoroutine(ApiManager.UpdateLeaderboard(new ApiManager.LeaderboardEntry(nic,_playerManager.kills,_playerManager.bestWave), updateSuccessful =>
+                    {}));
+                }));
+            }
+        }));
     }
 
     public void RestartGame()

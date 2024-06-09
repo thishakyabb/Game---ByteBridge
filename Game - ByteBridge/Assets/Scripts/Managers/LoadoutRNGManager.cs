@@ -64,11 +64,14 @@ public class LoadoutRNGManager : MonoBehaviour
          
                StartCoroutine(ApiManager.GetUsageToday(tdy =>
                      {
-                        Debug.Log(avrg);
-                        Debug.Log(tdy);
                         if (avrg > tdy)
                         {
+                           Debug.Log("Got the reward");
                            PlayerManager.coins += 200;
+                        }
+                        else
+                        {
+                           Debug.Log("no reward for today");
                         }
                      }
                   )

@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public Stat luckModifier = new Stat(1f,"Luck");
     [SerializeField] public Stat rangeModifier = new Stat(1f,"Range");
     [SerializeField] public Stat damageModifier = new Stat(1f,"Damage");
-    
+     
     [Header("UI elements")]
     [SerializeField] private TextMeshProUGUI healthTextTMP;
     [SerializeField] private Image healthFill;
@@ -31,9 +31,10 @@ public class PlayerManager : MonoBehaviour
     
     public static PlayerManager Instance;
     private LoadoutRNGManager LoadoutRngManager;
-
+    
+    public int kills = 0;
     public int coins = 0;
-
+    public int bestWave = 0;
     public void Awake()
     {
         if (Instance == null) Instance = this;
@@ -106,6 +107,8 @@ public class PlayerManager : MonoBehaviour
        damageModifier.StatValue = 1f;
        maxHealth = 100;
        currentHealth = maxHealth;
+       kills = 0;
+       bestWave = 0;
     }
     
 }
