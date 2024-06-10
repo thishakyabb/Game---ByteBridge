@@ -60,6 +60,7 @@ public class EnemyBrain : MonoBehaviour
     private void Die()
     {
         transform.parent.GetComponent<EnemyHolder>().lastPosition = transform.position;
+        _playerManager.kills++;
         Destroy(gameObject);
     }
 }

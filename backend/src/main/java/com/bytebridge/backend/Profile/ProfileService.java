@@ -30,11 +30,11 @@ public class ProfileService {
 
     public boolean isAuthorizedForQuestionnaire(String nic) {
         Optional<Profile> existingProfile = Optional.ofNullable(profileRepository.findByNic(nic));
-        if (existingProfile.isEmpty()) {
+        if (existingProfile.isPresent()&& existingProfile.get() != null) {
 
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 

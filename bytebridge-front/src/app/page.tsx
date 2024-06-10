@@ -37,7 +37,7 @@ export default function Home() {
 		<div>
 			<Unity
 				unityProvider={unityProvider}
-				style={{ width: 800, height: 600 }}
+				style={{ width:1280, height: 720}}
 				// devicePixelRatio={devicePixelRatio}
 			/>
 		</div>

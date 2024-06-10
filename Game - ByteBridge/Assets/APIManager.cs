@@ -68,12 +68,13 @@ public class ApiManager : MonoBehaviour
     }
 
     public IEnumerator GetQuestionnaireState(System.Action<bool> callback)
+        
     {
-
         //making the second api call to get nic
         using (UnityWebRequest www = UnityWebRequest.Get(baseRemoteUrl + "user/profile/view"))
         {
             www.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
@@ -95,8 +96,17 @@ public class ApiManager : MonoBehaviour
                         // Handle the response here
                         string localResponseText = localWww.downloadHandler.text;
                         Debug.Log("Response: " + localResponseText);
-                        callback(true);
-                        yield return localResponseText;
+                        bool value = false;
+                        if (bool.TryParse(localResponseText,out value))
+                        {
+
+                            callback(value);
+                            yield return value;
+                        }
+
+                        
+                        callback(false);
+                        yield return false;
                     }
                     else
                     {
@@ -133,6 +143,7 @@ public class ApiManager : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 // Parse the response to extract the user profile
+                 
                 string responseText = www.downloadHandler.text;
                 UserProfileResponse userProfile = JsonUtility.FromJson<UserProfileResponse>(responseText);
 
@@ -249,6 +260,64 @@ public class ApiManager : MonoBehaviour
             
         }
     }
+
+    public IEnumerator GetLeaderboard(Action<List<LeaderboardEntry>> callback)
+        
+    {
+        
+        using (UnityWebRequest request = new UnityWebRequest($"{baseLocalUrl}leaderboard","GET"))
+            
+        {
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                List<LeaderboardEntry> leaderboardEntries = JsonConvert.DeserializeObject<List<LeaderboardEntry>>(request.downloadHandler.text);
+                // List<LeaderboardEntryFinal> leaderboardEntryFinals = new List<LeaderboardEntryFinal>();
+                // foreach (var entry in leaderboardEntries)
+                // {
+                //     StartCoroutine(FetchProfile(user =>
+                //     {
+                //         // ideally, we could get all the usernames of the gamers by individually querying the api. but no such API endpoint was provided
+                //         if (user.nic == entry.nic)
+                //         {
+                //             leaderboardEntryFinals.Add(new LeaderboardEntryFinal(user.username,entry.kills,entry.waves));
+                //         }
+                //     } ));
+                // }
+                callback?.Invoke(leaderboardEntries);
+                yield return leaderboardEntries;
+            }
+            
+            
+        }
+    }
+
+    public IEnumerator UpdateLeaderboard(LeaderboardEntry leaderboardEntry,Action<LeaderboardEntry> callback)
+    {
+        
+        using (UnityWebRequest request = new UnityWebRequest($"{baseLocalUrl}leaderboard/create","POST")) {
+            // converting object to json
+            string jsonRequestBody = JsonUtility.ToJson(leaderboardEntry);
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonRequestBody); ;
+            
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                LeaderboardEntry leaderboard = JsonConvert.DeserializeObject<LeaderboardEntry>(request.downloadHandler.text);
+                callback?.Invoke(leaderboard);
+                yield return leaderboard;
+            }
+            
+        }
+    }
+
     private string ParseJwtToken(string responseText)
     {
         TokenResponse tokenResponse = JsonUtility.FromJson<TokenResponse>(responseText);
@@ -297,6 +366,19 @@ public class ApiManager : MonoBehaviour
         public string phoneNumber;
         public string email;
     }
+    public class LeaderboardEntry
+    {
+        public string nic;
+        public int kills;
+        public int waves;
+
+        public LeaderboardEntry(string nic, int kills, int waves)
+        {
+            this.nic = nic;
+            this.kills = kills;
+            this.waves = waves;
+        }
+    }
     
     //Payload from local db
     public class Question
@@ -309,6 +391,19 @@ public class ApiManager : MonoBehaviour
         public string genericFeedback { get; set; }
     }
 
+    public class LeaderboardEntryFinal
+    {
+        public string gamertag;
+        public int kills;
+        public int waves;
+
+        public LeaderboardEntryFinal(string gamertag, int kills, int waves)
+        {
+            this.gamertag = gamertag;
+            this.kills = kills;
+            this.waves = waves;
+        }
+    }
     public class Data
     {
         public int id { get; set; }
