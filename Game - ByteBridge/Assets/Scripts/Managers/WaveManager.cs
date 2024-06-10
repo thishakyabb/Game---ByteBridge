@@ -60,6 +60,7 @@ public class WaveManager : MonoBehaviour
         EnemyManager.timeBetweenSpawns -= spawnTimeDecrement;
         gm.SpawnGuns();
         waveCounterTMP.text = String.Format("{0}th wave",waveNumber);
+        ApplyBeforeWave();
         timeLeft = waveDuration;
         timer = StartCoroutine(Countdown());
         _playerManager.bestWave++;
@@ -72,7 +73,7 @@ public class WaveManager : MonoBehaviour
         EnemyManager.DestroyAllEnemies();
         LoadoutUI.SetActive(true);
         PlayerUI.SetActive(false);
-        LoadoutRngManager.Reroll();
+        LoadoutRngManager.GetRandomCards();
         gm.RemoveAllGuns();
     }
     private IEnumerator Countdown()
@@ -96,7 +97,9 @@ public class WaveManager : MonoBehaviour
         EnemyManager.DestroyAllEnemies();
         PlayerUI.SetActive(false);
         GameOverUI.SetActive(true);
-        LoadoutRngManager.Reroll();
+        StartCoroutine(
+            LoadoutRngManager.StaggerRandom()
+        );
         gm.RemoveAllGuns();
         // first authenticates, then fetches profile and finally updates leaderboard
         StartCoroutine(ApiManager.AuthenticateMockAPI(isAuthenticated =>
@@ -131,6 +134,13 @@ public class WaveManager : MonoBehaviour
 
 
     }
+
+    public void ApplyBeforeWave()
+    {
+        
+        int newHealth =  (int)(_playerManager.maxHealth * _playerManager.regenModifier.StatValue);
+        _playerManager.currentHealth = Mathf.Min(_playerManager.currentHealth + newHealth, _playerManager.maxHealth);
+    }    
     
     
 }

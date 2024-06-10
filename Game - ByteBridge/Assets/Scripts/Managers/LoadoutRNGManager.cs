@@ -83,7 +83,7 @@ public class LoadoutRNGManager : MonoBehaviour
    }
 
    private void Update()
-   {
+ {
       coinTMP.text = PlayerManager.coins.ToString();
       rerollCoinTMP.text = rerollCost.ToString();
       
@@ -102,15 +102,15 @@ public class LoadoutRNGManager : MonoBehaviour
    {
       if (PlayerManager.coins > rerollCost)
       {
-      for (int i = cardHolder.transform.childCount - 1; i >= 0; i--)
+      CardBase[] cards = cardHolder.gameObject.GetComponents<CardBase>();
+      foreach (var card in cards)
       {
-         Destroy(cardHolder.transform.GetChild(i).gameObject);
+        Destroy(card.gameObject); 
       }
-         // StartCoroutine(StaggerRandom());
+         StartCoroutine(StaggerRandom());
          PlayerManager.coins -= rerollCost;
          rerollNumber++;
          rerollCost += rerollCost * (int)rerollCostIncrementPercentage / 100;
-      GetRandomCards();
          
       }
       
@@ -119,7 +119,11 @@ public class LoadoutRNGManager : MonoBehaviour
 
    public void GetRandomCards()
    {
-        
+      CardBase[] cards = cardHolder.gameObject.GetComponentsInChildren<CardBase>();
+      foreach (var card in cards)
+      {
+        Destroy(card.gameObject); 
+      }
       for (int i = 0; i < 4; i++)
       {
          // int randomIndex = random.Next(myList.Count);
@@ -134,6 +138,12 @@ public class LoadoutRNGManager : MonoBehaviour
 
    public IEnumerator StaggerRandom()
    {
+      
+      CardBase[] cards = cardHolder.gameObject.GetComponentsInChildren<CardBase>();
+      foreach (var card in cards)
+      {
+        Destroy(card.gameObject); 
+      }
       for (int i = 0; i < 4; i++)
       {
          // int randomIndex = random.Next(myList.Count);

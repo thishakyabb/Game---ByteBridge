@@ -1242,6 +1242,7 @@ MonoBehaviour:
   - {fileID: 2478083985538173817, guid: 2eedd43ee4fce58ba9b52ebc6d1ebe2a, type: 3}
   - {fileID: 2478083985538173817, guid: 617806ec74445f2a7832af4034c3a772, type: 3}
   - {fileID: 2478083985538173817, guid: b540ddd09ceb25d9b90b0aa0c61136e8, type: 3}
+  - {fileID: 2478083985538173817, guid: f419d2c09d8fb65578994778c245871e, type: 3}
   cardHolder: {fileID: 13286203}
   inventoryHolder: {fileID: 659165782}
   LoadoutUIController: {fileID: 1425334410}
@@ -2249,10 +2250,15 @@ MonoBehaviour:
   damageModifier:
     StatValue: 1
     StatName: Damage
+  regenModifier:
+    StatValue: 0
+    StatName: Regeneration
   healthTextTMP: {fileID: 277326415}
   healthFill: {fileID: 1244427874}
   coinTextTMP: {fileID: 579861264723278331}
+  kills: 0
   coins: 0
+  bestWave: 0
 --- !u!1 &1156087176
 GameObject:
   m_ObjectHideFlags: 0
@@ -13681,6 +13687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyManager: {fileID: 0}
   LoadoutRngManager: {fileID: 0}
+  ApiManager: {fileID: 0}
   waveNumber: 0
   LoadoutUI: {fileID: 1425334410}
   PlayerUI: {fileID: 1053641100}
@@ -13689,7 +13696,7 @@ MonoBehaviour:
   waveCounterTMP: {fileID: 1197066137}
   difficultyModifier: 1
   difficultyModifierIncrement: 0.3
-  spawnTimeDecrement: 0.02
+  spawnTimeDecrement: 0.05
   waveDuration: 30
   timeLeft: 0
 --- !u!1 &1337459574

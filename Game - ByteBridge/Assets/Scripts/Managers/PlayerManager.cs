@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public Stat luckModifier = new Stat(1f,"Luck");
     [SerializeField] public Stat rangeModifier = new Stat(1f,"Range");
     [SerializeField] public Stat damageModifier = new Stat(1f,"Damage");
+    [SerializeField] public Stat regenModifier = new Stat(0f,"Regeneration");
      
     [Header("UI elements")]
     [SerializeField] private TextMeshProUGUI healthTextTMP;
@@ -33,7 +34,20 @@ public class PlayerManager : MonoBehaviour
     private LoadoutRNGManager LoadoutRngManager;
     
     public int kills = 0;
-    public int coins = 0;
+
+    private int _coins;
+    public int coins
+    {
+        get
+        {
+            return _coins;
+        }
+        set
+        {
+            Debug.Log("got set here");
+            _coins = value;
+        }
+    }
     public int bestWave = 0;
     public void Awake()
     {
@@ -65,7 +79,8 @@ public class PlayerManager : MonoBehaviour
             maxHealthModifier,
             luckModifier,
             rangeModifier,
-            damageModifier
+            damageModifier,
+            regenModifier
         };
         return list;
     }
@@ -97,6 +112,7 @@ public class PlayerManager : MonoBehaviour
         guns.Clear();
         coins = 0;
         dead = false;
+
         
        fireCooldownModifier.StatValue = 1f;
        critStat.StatValue = 0f;
@@ -107,6 +123,9 @@ public class PlayerManager : MonoBehaviour
        damageModifier.StatValue = 1f;
        maxHealth = 100;
        currentHealth = maxHealth;
+       regenModifier.StatValue = 0f;
+       
+       
        kills = 0;
        bestWave = 0;
     }
