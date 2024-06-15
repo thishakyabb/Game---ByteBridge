@@ -15,6 +15,7 @@ public class LoadoutRNGManager : MonoBehaviour
    [SerializeField] private List<GameObject> CardPrefabs;
    [SerializeField] private GameObject cardHolder;
    [SerializeField] private GameObject inventoryHolder;
+   [SerializeField] private TextMeshProUGUI ToastHolder;
    public static LoadoutRNGManager Instance;
    [SerializeField] private GameObject LoadoutUIController;
    [SerializeField] private TextMeshProUGUI rerollCoinTMP;
@@ -22,11 +23,15 @@ public class LoadoutRNGManager : MonoBehaviour
    [SerializeField] private float rerollCostIncrementPercentage = 25f;
    [SerializeField] private GameObject rewardButton;
    [SerializeField] private Sprite transparentSprite;
+
+   private Coroutine ToastTimer;
    private int rerollNumber = 0;
    private int rerollCost = 25;
    private ApiManager ApiManager;
    private bool markRewardCollected = false;
    private bool energyRewardCollected = false;
+   private float toastDuration = 5f;
+   
    public void Awake()
    {
       if (Instance == null) Instance = this;
@@ -66,18 +71,30 @@ public class LoadoutRNGManager : MonoBehaviour
                      {
                         if (avrg > tdy)
                         {
+<<<<<<< HEAD
                            Debug.Log("Got the reward");
+=======
+                           setToast("Good job on saving energy!");
+>>>>>>> f073efec7 (added toast to loadoutUI controller)
                            PlayerManager.coins += 200;
                         }
                         else
                         {
+<<<<<<< HEAD
                            Debug.Log("no reward for today");
+=======
+                           setToast("Energy usage too high! No energy reward today");
+>>>>>>> f073efec7 (added toast to loadoutUI controller)
                         }
                      }
                   )
                )
             )
          );
+      }
+      else
+      {
+         setToast("Reward already collected");
       }
       energyRewardCollected = true;
    }
@@ -136,6 +153,30 @@ public class LoadoutRNGManager : MonoBehaviour
       }
    }
 
+   public void setToast(string toastText)
+   {
+      if (ToastTimer != null)
+      {
+        StopCoroutine(ToastTimer); 
+      }
+      ToastTimer = StartCoroutine(ToastTimerFunc(toastText));
+   }
+   private IEnumerator ToastTimerFunc(string toastText)
+   {
+      ToastHolder.text = toastText; 
+      float currentTime = 0f;
+      while ( currentTime <= toastDuration)
+      {
+         currentTime++;
+         yield return new WaitForSeconds(1);
+      }
+
+      if (currentTime > toastDuration)
+      {
+         ToastHolder.text = "";
+      }
+   }
+
    public IEnumerator StaggerRandom()
    {
       
@@ -155,6 +196,7 @@ public class LoadoutRNGManager : MonoBehaviour
          // Use the randomItem here
       }
    }
+   
 
    public void UpdateInventory()
    {
