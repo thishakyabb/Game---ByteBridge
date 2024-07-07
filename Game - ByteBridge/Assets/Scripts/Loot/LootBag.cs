@@ -5,18 +5,28 @@ using UnityEngine;
 
 public class LootBag : MonoBehaviour
 {
-    [SerializeField] public List<GameObject> lootList = new List<GameObject>();
+    [SerializeField] public List<LootConfig> lootList = new List<LootConfig>();
+    private WeightedRNGCalulator _weightedRngCalulator;
+    [SerializeField] public LootBase lootObject;
+
+    private void Start()
+    {
+        List<WeightedRNGItem> weightedEnemyList = new List<WeightedRNGItem>();
+        foreach (var config in lootList)
+        {
+            float weight = config.dropChance;
+            weightedEnemyList.Add(new WeightedRNGItem(weight,config));
+        }
+
+        _weightedRngCalulator = new WeightedRNGCalulator(weightedEnemyList);
+    }
 
     public void SpawnLoot(Vector3 position)
     {
-        int randomPercentage = UnityEngine.Random.Range(0, 100);
-        foreach (var loot in lootList)
-        {
-            if (loot.GetComponent<Loot>().dropChance > randomPercentage) 
-            {
-                // Instantiate(loot,position,Quaternion.identity, enemyTransform);
-                Instantiate(loot, new Vector3(position.x,position.y,position.z), Quaternion.identity);
-            }
-        }
+      // Instantiate(loot,position,Quaternion.identity, enemyTransform);
+      var randomconfig = _weightedRngCalulator.GetRandomGO();
+      var l = Instantiate(lootObject, new Vector3(position.x,position.y,position.z), Quaternion.identity);
+      l.lootConfig = randomconfig;
+      l.PostInstantiate();
     }
 }

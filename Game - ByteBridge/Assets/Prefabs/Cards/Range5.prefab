@@ -226,6 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a7080614a04d5ba918661f397765a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 0.1
+  swoosh: {fileID: 8300000, guid: 17a418cc54a3c181bb1170a6a3728639, type: 3}
 --- !u!114 &8887455174846446062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 1789632079, guid: 84f8df66c53c4f108afdd8bcb3237c9e, type: 3}
   itemImageComponent: {fileID: 2267962027107588518}
-  button: {fileID: 0}
   cardDescGameObject: {fileID: 8221342545664788689}
   cardDesc: +5% Attack range
 --- !u!1 &2835138663994156128

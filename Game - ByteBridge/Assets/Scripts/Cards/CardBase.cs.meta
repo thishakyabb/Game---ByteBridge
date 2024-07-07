@@ -1,3 +1,12 @@
 fileFormatVersion: 2
 guid: 58a7080614a04d5ba918661f397765a1
-timeCreated: 1715878701
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - swoosh: {fileID: 8300000, guid: 17a418cc54a3c181bb1170a6a3728639, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

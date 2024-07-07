@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 6855925313964522659}
   - component: {fileID: 5163122746349025667}
   - component: {fileID: 6552460377330719051}
+  - component: {fileID: -2414690620273104382}
   m_Layer: 0
   m_Name: Enemy 3
   m_TagString: Untagged
@@ -163,6 +164,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   speed: 2
+  canThrowProjectiles: 0
+  projectileCooldown: 5
+  projectile: {fileID: 0}
 --- !u!95 &6855925313964522659
 Animator:
   serializedVersion: 5
@@ -257,6 +261,27 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &-2414690620273104382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159614783808377938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034e672672037394d87b87c0022d8a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootList:
+  - {fileID: 11400000, guid: e091e8da0080e926bbed5735872b6bc1, type: 2}
+  - {fileID: 11400000, guid: c63435e4b41415143a2db2261ec56b2a, type: 2}
+  - {fileID: 11400000, guid: 5439e51c3f8129b49a8cf0f7506e2e5a, type: 2}
+  - {fileID: 11400000, guid: 6fe0aab327356b18c9014db989bb8783, type: 2}
+  - {fileID: 11400000, guid: 044c10a11a526d0eb948f06c4157bf6c, type: 2}
+  - {fileID: 11400000, guid: 0f5044192b1719c3abc8b37c26e0d88d, type: 2}
+  - {fileID: 11400000, guid: ba0a7622149d9fd0faffd2cd3b5d8ad7, type: 2}
+  lootObject: {fileID: 4635353873516625657, guid: a5f6e2c51151b9726bef1c80039e8bad, type: 3}
 --- !u!1 &3521002247448669431
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,13 +12,11 @@ public class EnemyHolder : MonoBehaviour
    private float currentWarningTime = 0f;
    private GameObject warning;
    private bool spawned = false;
-   private LootBag lootBag;
    private bool lootSpawned = false;
    public Vector3 lastPosition;
    private void Start()
    {
       warning = Instantiate(xPrefab, gameObject.transform);
-      lootBag = GetComponent<LootBag>();
       StartCoroutine(Count());
    }
 
@@ -27,6 +25,7 @@ public class EnemyHolder : MonoBehaviour
       if (spawned)
       {
          var enemy = gameObject.GetComponentInChildren<EnemyBrain>();
+         LootBag lootBag = gameObject.GetComponentInChildren<LootBag>();
          
          if (enemy == null && lootSpawned == false)
          {
@@ -39,7 +38,9 @@ public class EnemyHolder : MonoBehaviour
       if (currentWarningTime >= warningDuration && spawned == false)
       {
          Destroy(warning);
-         Instantiate(enemyPrefab, gameObject.transform);
+         var enemy = Instantiate(enemyPrefab, gameObject.transform);
+         enemy.GetComponent<EnemyBrain>().speed +=
+            enemy.GetComponent<EnemyBrain>().speed * WaveManager.Instance.difficultyModifier;
          spawned = true;
       }
    }

@@ -12,11 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869d7dbdd64b41be884cfdb9f7bb8098, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  fireRange: 20
-  projectile: {fileID: 6572566582780822524, guid: 21270af3cf265c6d0bc5ab9f1f03d977, type: 3}
-  fireRate: 1
   gunSprite: {fileID: -1555248495, guid: ef8121b034892a32fb5a1a0f43f3d642, type: 3}
-  damage: 50
+  projectile: {fileID: 6572566582780822524, guid: 21270af3cf265c6d0bc5ab9f1f03d977, type: 3}
+  fireAudioClip: {fileID: 8300000, guid: bca8621c55f9970ad9cdeca5f26259ee, type: 3}
+  fireRange: 10
+  fireRate: 0.5
+  piercing: 0
+  lifesteal: 0
+  damage: 25
   bulletCount: 1
   bulletSpread: 0
   bulletSpeed: 20
+  rarity: 0
+  fireRangeUpper: 10
+  fireRangeLower: 20
+  fireRateUpper: 1.2
+  fireRateLower: 0.8
+  lifestealUpper: 0
+  lifestealLower: 0
+  damageUpper: 15
+  damageLower: 7
+  bulletSpreadUpper: 10
+  bulletSpreadLower: 0
+  bulletSpeedUpper: 15
+  bulletSpeedLower: 8

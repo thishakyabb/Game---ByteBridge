@@ -16,4 +16,8 @@ MonoBehaviour:
   projectile: {fileID: 6572566582780822524, guid: 21270af3cf265c6d0bc5ab9f1f03d977, type: 3}
   fireRate: 0.5
   gunSprite: {fileID: -1294146188, guid: 12be4c2f659813bc89a1292b52edd20d, type: 3}
+  fireAudioClip: {fileID: 8300000, guid: e4954332b66e36fe8a8f5d561d6809e6, type: 3}
   damage: 25
+  bulletCount: 1
+  bulletSpread: 0
+  bulletSpeed: 20

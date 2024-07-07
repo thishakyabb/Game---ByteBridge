@@ -85,6 +85,7 @@ public class GunBase : MonoBehaviour
       anim.SetTrigger("shoot");
       var initialRotation = transform.rotation;
       var rotation = transform.rotation.eulerAngles;
+      SoundManager.Instance.PlaySoundClip(gunConfig.fireAudioClip,transform,0.5f);
       for (int i = 0; i < gunConfig.bulletCount; i++)
       {
          rotation.z += Random.Range(-gunConfig.bulletSpread, gunConfig.bulletSpread);
@@ -92,8 +93,13 @@ public class GunBase : MonoBehaviour
          // rotation.
          var projectileGo = Instantiate(projectile, muzzlePosition.position, initialRotation);
          var bulletScript =  projectileGo.GetComponent<Bullet>();
+         
+         // imparting some properties to the bullet
          bulletScript.damage= gunConfig.damage;
          bulletScript.speed = gunConfig.bulletSpeed;
+         bulletScript.piercing = gunConfig.piercing;
+         bulletScript.lifesteal = gunConfig.lifesteal;
+         
          Destroy(projectileGo,3);
       }
       

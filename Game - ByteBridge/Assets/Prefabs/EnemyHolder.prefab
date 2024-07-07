@@ -48,6 +48,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1159614783808377938, guid: c950d3eb38576dc26b5c77af31ab00d9, type: 3}
   xPrefab: {fileID: 5748583318331264428, guid: 1643ff29e283f41d0b098336f7036bdd, type: 3}
   warningDuration: 2
+  lastPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &-510030238705078726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,4 +62,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootList:
-  - {fileID: 6517770185427593218, guid: a5f6e2c51151b9726bef1c80039e8bad, type: 3}
+  - {fileID: 11400000, guid: e091e8da0080e926bbed5735872b6bc1, type: 2}
+  - {fileID: 11400000, guid: c63435e4b41415143a2db2261ec56b2a, type: 2}
+  - {fileID: 11400000, guid: 5439e51c3f8129b49a8cf0f7506e2e5a, type: 2}
+  - {fileID: 11400000, guid: 6fe0aab327356b18c9014db989bb8783, type: 2}
+  - {fileID: 11400000, guid: 044c10a11a526d0eb948f06c4157bf6c, type: 2}
+  - {fileID: 11400000, guid: 0f5044192b1719c3abc8b37c26e0d88d, type: 2}
+  - {fileID: 11400000, guid: ba0a7622149d9fd0faffd2cd3b5d8ad7, type: 2}
+  lootObject: {fileID: 4635353873516625657, guid: a5f6e2c51151b9726bef1c80039e8bad, type: 3}

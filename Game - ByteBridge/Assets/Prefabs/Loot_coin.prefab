@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 5059178176504524554}
   - component: {fileID: 5850444964528184198}
   - component: {fileID: 7965865311615946777}
+  - component: {fileID: -831846265052631351}
   m_Layer: 0
   m_Name: Loot_coin
   m_TagString: Untagged
@@ -132,9 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8032b35c604694349df03806e9bfab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootName: coin
-  dropChance: 100
   PlayerManager: {fileID: 0}
+  lootConfig: {fileID: 0}
   fadeTime: 8
 --- !u!50 &5059178176504524554
 Rigidbody2D:
@@ -219,3 +219,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-831846265052631351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517770185427593218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8032b35c604694349df03806e9bfab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerManager: {fileID: 0}
+  lootConfig: {fileID: 0}
+  fadeTime: 8

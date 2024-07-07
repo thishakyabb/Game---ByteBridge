@@ -24,11 +24,11 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         enemiesParent = GameObject.Find("Enemies").transform;
-        List<WeightedRNG> weightedEnemyList = new List<WeightedRNG>();
+        List<WeightedRNGItem> weightedEnemyList = new List<WeightedRNGItem>();
         foreach (var enemy in enemies)
         {
             float weight = enemy.GetComponent<WeightMono>().weight;
-            weightedEnemyList.Add(new WeightedRNG(weight,enemy));
+            weightedEnemyList.Add(new WeightedRNGItem(weight,enemy));
         }
 
         _weightedRngCalulator = new WeightedRNGCalulator(weightedEnemyList);
@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject enemyPrefab = _weightedRngCalulator.GetRandomGO();
+        var enemyPrefab = _weightedRngCalulator.GetRandomGO();
         var e = Instantiate(enemyHolder, RandomPosition(), Quaternion.identity);
         e.GetComponent<EnemyHolder>().enemyPrefab = enemyPrefab;
         e.transform.SetParent(enemiesParent);

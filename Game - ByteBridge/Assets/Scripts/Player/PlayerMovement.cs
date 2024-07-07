@@ -11,8 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     private Animator anim;
     private Rigidbody2D rb;
-
-
+    [SerializeField] private AudioClip hitSound;
     private bool dead = false;
     private float moveHorizontal, moveVertical;
     private Vector2 movement;
@@ -67,10 +66,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Hit(int damage)
+    public void Hit(int damage)
     {
         anim.SetTrigger("hit");
         
+        SoundManager.Instance.PlaySoundClip(hitSound,transform,1f);
         _playerManager.currentHealth -= damage;
         _playerManager.UpdateHealth();
         if (_playerManager.currentHealth <= 0)
